@@ -2,7 +2,7 @@ from enum import Enum, auto
 
 
 class TokenType(Enum):
-    # These token types are added in chapter 2
+    # Existing token types (from chapter 2)
     INTEGER = auto()
     FLOAT = auto()
     PLUS = auto()
@@ -12,7 +12,7 @@ class TokenType(Enum):
     LPAREN = auto()
     RPAREN = auto()
 
-    # New token types (these are added in chapter 4 of the blog)
+    # New token types (from chapter 4)
     IDENTIFIER = auto()
     LET = auto()
     FN = auto()
@@ -44,25 +44,65 @@ class Lexer:
     def __init__(self, text):
         self.text = text
         self.pos = 0
-        self.current_char = self.text[self.pos]
+        self.current_char = self.text[self.pos] if self.pos < len(
+            self.text) else None
 
     def advance(self):
         self.pos += 1
-        if self.pos > len(self.text)-1:
-            self.current_char = None
-        else:
-            self.current_char = self.text[self.pos]
+        self.current_char = self.text[self.pos] if self.pos < len(
+            self.text) else None
+
+    def peek(self):
+        peek_pos = self.pos + 1
+        return self.text[peek_pos] if peek_pos < len(self.text) else None
 
     def skip_whitespace(self):
         while self.current_char is not None and self.current_char.isspace():
             self.advance()
 
-    def integer(self) -> int:
+    def number(self):
         result = ''
-        while self.current_char is not None and self.current_char.isdigit():
+        dot_count = 0
+        while self.current_char is not None and (self.current_char.isdigit() or self.current_char == '.'):
+            if self.current_char == '.':
+                if dot_count == 1:
+                    break
+                dot_count += 1
+                result += '.'
+            else:
+                result += self.current_char
+            self.advance()
+
+        if dot_count == 0:
+            return Token(TokenType.INTEGER, int(result))
+        else:
+            return Token(TokenType.FLOAT, float(result))
+
+    def identifier(self):
+        result = ''
+        while self.current_char is not None and self.current_char.isalnum():
             result += self.current_char
             self.advance()
-        return int(result)
+
+        token_type = {
+            'let': TokenType.LET,
+            'fn': TokenType.FN,
+            'if': TokenType.IF,
+            'else': TokenType.ELSE,
+            'True': TokenType.TRUE,
+            'False': TokenType.FALSE,
+        }.get(result, TokenType.IDENTIFIER)
+
+        return Token(token_type, result)
+
+    def string(self):
+        result = ''
+        self.advance()  # Skip the opening quote
+        while self.current_char is not None and self.current_char != '"':
+            result += self.current_char
+            self.advance()
+        self.advance()  # Skip the closing quote
+        return Token(TokenType.STRING, result)
 
     def get_next_token(self):
         while self.current_char is not None:
@@ -70,8 +110,31 @@ class Lexer:
                 self.skip_whitespace()
                 continue
 
+            if self.current_char.isalpha():
+                return self.identifier()
+
             if self.current_char.isdigit():
-                return Token(TokenType.INTEGER, self.integer())
+                return self.number()
+
+            if self.current_char == '"':
+                return self.string()
+
+            if self.current_char == '=':
+                if self.peek() == '=':
+                    self.advance()
+                    self.advance()
+                    return Token(TokenType.EQUALEQUAL, '==')
+                self.advance()
+                return Token(TokenType.EQUAL, '=')
+
+            if self.current_char == '-' and self.peek() == '>':
+                self.advance()
+                self.advance()
+                return Token(TokenType.ARROW, '->')
+
+            if self.current_char == '|':
+                self.advance()
+                return Token(TokenType.PIPE, '|')
 
             if self.current_char == '+':
                 self.advance()
@@ -96,6 +159,26 @@ class Lexer:
             if self.current_char == ')':
                 self.advance()
                 return Token(TokenType.RPAREN, ')')
+
+            if self.current_char == '[':
+                self.advance()
+                return Token(TokenType.LBRACKET, '[')
+
+            if self.current_char == ']':
+                self.advance()
+                return Token(TokenType.RBRACKET, ']')
+
+            if self.current_char == '{':
+                self.advance()
+                return Token(TokenType.LBRACKET, '{')
+
+            if self.current_char == '}':
+                self.advance()
+                return Token(TokenType.RBRACKET, '}')
+
+            if self.current_char == ',':
+                self.advance()
+                return Token(TokenType.COMMA, ',')
 
             raise Exception(f"Invalid character: {self.current_char}")
 
