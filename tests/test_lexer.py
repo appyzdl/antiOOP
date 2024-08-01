@@ -25,7 +25,7 @@ def test_lexer_parentheses():
 
 
 def test_lexer_complex_expression():
-    lexer = Lexer("(1 + 2) * 3 - 4 / 5")
+    lexer = Lexer("(1 + 2) * 3 - 4 / 25")
     tokens = [lexer.get_next_token().type for _ in range(11)
               ]  # 10 tokens + EOF
     assert tokens == [
