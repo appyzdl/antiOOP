@@ -2,6 +2,7 @@ from enum import Enum, auto
 
 
 class TokenType(Enum):
+    # These token types are added in chapter 2
     INTEGER = auto()
     FLOAT = auto()
     PLUS = auto()
@@ -10,6 +11,23 @@ class TokenType(Enum):
     DIVIDE = auto()
     LPAREN = auto()
     RPAREN = auto()
+
+    # New token types (these are added in chapter 4 of the blog)
+    IDENTIFIER = auto()
+    LET = auto()
+    FN = auto()
+    IF = auto()
+    ELSE = auto()
+    TRUE = auto()
+    FALSE = auto()
+    STRING = auto()
+    LBRACKET = auto()
+    RBRACKET = auto()
+    COMMA = auto()
+    EQUAL = auto()
+    EQUALEQUAL = auto()
+    ARROW = auto()
+    PIPE = auto()
     EOF = auto()
 
 
