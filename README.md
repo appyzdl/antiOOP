@@ -15,7 +15,7 @@ antiOOP is a statically-typed functional programming language built from scratch
 Follow our step-by-step guide to building antiOOP:
 
 1. [Introduction to Functional Programming and antiOOP](https://appyzdl5.substack.com/p/crafting-antioop-a-13-step-journey)
-2. [Setting Up the Development Environment(still under development)](https://appyzdl5.substack.com/p/crafting-antioop-a-13-step-journey-0ba)
+2. [Setting Up the Development Environment](https://appyzdl5.substack.com/p/crafting-antioop-a-13-step-journey-0ba)
 3. [Designing the Core Language Features(still under development)(]()
 4. [Implementing the Lexer(still under development)(]()
 5. [Building the Parser(still under development)(]()
