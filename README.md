@@ -16,17 +16,17 @@ Follow our step-by-step guide to building antiOOP:
 
 1. [Introduction to Functional Programming and antiOOP](https://appyzdl5.substack.com/p/crafting-antioop-a-13-step-journey)
 2. [Setting Up the Development Environment](https://appyzdl5.substack.com/p/crafting-antioop-a-13-step-journey-0ba)
-3. [Designing the Core Language Features(still under development)(]()
-4. [Implementing the Lexer(still under development)(]()
-5. [Building the Parser(still under development)(]()
-6. [Creating the Abstract Syntax Tree (AST)(still under development)(]()
-7. [Implementing the Interpreter(still under development)(]()
-8. [Adding Higher-Order Functions(still under development)(]()
-9. [Introducing Pattern Matching(still under development)(]()
+3. [Designing the Core Language Features(still under development)](https://appyzdl5.substack.com/p/crafting-antioop-a-13-step-journey-e99)
+4. [Implementing the Lexer(still under development)](https://appyzdl5.substack.com/p/crafting-antioop-a-13-step-journey-0d5)
+5. [Building the Parser(still under development)](https://appyzdl5.substack.com/p/crafting-antioop-a-13-step-journey-fa4)
+6. [Creating the Abstract Syntax Tree (AST)(still under development)]()
+7. [Implementing the Interpreter(still under development)]()
+8. [Adding Higher-Order Functions(still under development)]()
+9. [Introducing Pattern Matching(still under development)]()
 10. [Implementing Lazy Evaluation(still under development)]()
-11. [Adding Type Inference(still under development)(]()
-12. [Creating a Standard Library(still under development)(]()
-13. [Building a REPL and Optimizing Performance(still under development)(]()
+11. [Adding Type Inference(still under development)]()
+12. [Creating a Standard Library(still under development)]()
+13. [Building a REPL and Optimizing Performance(still under development)]()
 
 ## Features
 
