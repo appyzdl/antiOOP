@@ -1,5 +1,6 @@
 from enum import Enum, auto
 
+
 class TokenType(Enum):
     # Existing token types (from chapter 2)
     INTEGER = auto()
@@ -103,6 +104,14 @@ class Lexer:
         self.advance()  # Skip the closing quote
         return Token(TokenType.STRING, result)
 
+    def let_statement(self):
+        self.consume(TokenType.LET, "Expect 'let' keyword.")
+        name = self.consume(TokenType.IDENTIFIER,
+                            "Expect variable name.").value
+        self.consume(TokenType.EQUAL, "Expect '=' after variable name.")
+        value = self.expression()
+        return LetNode(name, value)
+
     def get_next_token(self):
         while self.current_char is not None:
             if self.current_char.isspace():
@@ -110,7 +119,9 @@ class Lexer:
                 continue
 
             if self.current_char.isalpha():
-                return self.identifier()
+                token = self.identifier()
+                print(f"Generated token: {token}")  # Debug print
+                return token
 
             if self.current_char.isdigit():
                 return self.number()
@@ -181,4 +192,6 @@ class Lexer:
 
             raise Exception(f"Invalid character: {self.current_char}")
 
-        return Token(TokenType.EOF, None)
+        token = Token(TokenType.EOF, None)
+        print(f"Generated token: {token}")  # Debug print
+        return token

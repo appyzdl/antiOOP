@@ -1,5 +1,8 @@
 class ASTNode:
-    pass
+    def accept(self, visitor):
+        method_name = f'visit_{type(self).__name__.lower()}'
+        visit_method = getattr(visitor, method_name)
+        return visit_method(self)
 
 
 class NumberNode(ASTNode):
@@ -40,11 +43,17 @@ class LetNode(ASTNode):
         self.name = name
         self.value = value
 
+    def __str__(self):
+        return f"LetNode(name={self.name}, value={self.value})"
+
 
 class FunctionNode(ASTNode):
     def __init__(self, params, body):
         self.params = params
         self.body = body
+
+    def __str__(self):
+        return f"FunctionNode(params={self.params}, body={self.body})"
 
 
 class CallNode(ASTNode):
@@ -53,11 +62,22 @@ class CallNode(ASTNode):
         self.args = args
 
 
+class BlockNode(ASTNode):
+    def __init__(self, statements):
+        self.statements = statements
+
+    def __str__(self):
+        return f"BlockNode(statements={self.statements})"
+
+
 class IfNode(ASTNode):
     def __init__(self, condition, then_branch, else_branch):
         self.condition = condition
         self.then_branch = then_branch
         self.else_branch = else_branch
+
+    def __str__(self):
+        return f"IfNode(condition={self.condition}, then={self.then_branch}, else={self.else_branch})"
 
 
 class ListNode(ASTNode):
