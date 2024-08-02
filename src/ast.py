@@ -68,3 +68,4 @@ class ListNode(ASTNode):
 class ProgramNode(ASTNode):
     def __init__(self, statements):
         self.statements = statements
+ # type: ignore
