@@ -1,6 +1,5 @@
 from enum import Enum, auto
 
-
 class TokenType(Enum):
     # Existing token types (from chapter 2)
     INTEGER = auto()
